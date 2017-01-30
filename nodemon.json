@@ -1,0 +1,10 @@
+{
+    "ignore": [
+        ".git",
+        "node_modules/**/node_modules"
+    ],
+    "events": {
+        "restart": "osascript -e 'display notification \"App restarted due to:\n'$(basename $FILENAME)'\" with title \"nodemon\"'"
+    },
+    "ext": "js json hbs css less"
+}
