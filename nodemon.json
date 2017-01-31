@@ -3,7 +3,8 @@
         ".git",
         "node_modules/**/node_modules",
         "src/**/*",
-        "public/**/*"
+        "public/**/*",
+        "tmp/**/*"
     ],
     "events": {
         "restart": "osascript -e 'display notification \"App restarted due to:\n'$(basename $FILENAME)'\" with title \"nodemon\"'"
