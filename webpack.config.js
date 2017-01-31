@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === 'dev') {
     // output
     webpackOutput = {
         filename: PACKAGE.name + '.js',
-        path: path.resolve(__dirname, 'tmp')
+        path: path.resolve(__dirname, 'public/tmp')
     };
     // css path
     cssPath = PACKAGE.name + '.css';
@@ -43,6 +43,9 @@ module.exports = {
         }, {
             test: /\.less$/,
             loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
+        }, {
+            test: /\.hbs$/,
+            loader: "handlebars-loader"
         }]
     },
     output: webpackOutput,
