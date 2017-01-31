@@ -10,13 +10,19 @@ var gets = require('./routes/gets');
 
 var app = express();
 
-// view engine setup
+// set views location (src/hbs)
 app.set('views', path.join(__dirname, 'src/hbs'));
 app.set('view engine', 'hbs');
-hbs.registerPartials(__dirname + '/src/hbs');
+// set partials location (src/partials)
+hbs.registerPartials(__dirname + '/src/hbs/partials');
+// set layout/template location based on env
 if (process.env.NODE_ENV === 'dev') {
     app.set('view options', {
         layout: 'layoutdev'
+    });
+} else {
+    app.set('view options', {
+        layout: 'layout'
     });
 }
 
@@ -47,7 +53,7 @@ app.use(function(err, req, res, next) {
 
     // render the error page
     res.status(err.status || 500);
-    res.render('error');
+    res.render('pages/error');
 });
 
 module.exports = app;

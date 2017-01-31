@@ -2,9 +2,7 @@
     "ignore": [
         ".git",
         "node_modules/**/node_modules",
-        "src/**/*",
-        "public/**/*",
-        "*/tmp/*"
+        "public/**/*"
     ],
     "events": {
         "restart": "osascript -e 'display notification \"App restarted due to:\n'$(basename $FILENAME)'\" with title \"nodemon\"'"
