@@ -17,6 +17,7 @@
     "handlebars-loader": "^1.4.0",
     "hbs": "~4.0.1",
     "morgan": "~1.7.0",
+    "sendgrid": "^4.7.1",
     "serve-favicon": "~2.3.0",
     "webpack-zepto": "0.0.1"
   },
@@ -35,7 +36,6 @@
     "less-loader": "^2.2.3",
     "node-libs-browser": "^0.6.0",
     "nodemon": "^1.11.0",
-    "sendgrid": "^4.7.1",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.9.11"
