@@ -8,6 +8,6 @@ module.exports = {
                 message: 'This is a template loaded on the client'
             };
             $('.placeholder').html(clientTemplate(context));
-        })
+        });
     }
 }

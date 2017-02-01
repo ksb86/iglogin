@@ -2,4 +2,14 @@
     <h2>{{pageTitle}}</h2>
     <button class="btn btn-success">Click to load a client hbs template</button>
     <div class="placeholder"></div>
+    <br>
+    <form class="send-email" action="/send-email" method="post">
+        <input type="submit" class="btn btn-primary" value="Click to send email">
+    </form>
+    {{#if messageId}}
+    <p>{{messageId}}</p>
+    {{/if}}
+    {{#if response}}
+    <p>{{response}}</p>
+    {{/if}}
 </div>
