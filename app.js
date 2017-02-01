@@ -17,15 +17,13 @@ app.set('view engine', 'hbs');
 // set partials location (src/partials)
 hbs.registerPartials(__dirname + '/src/hbs/partials');
 // set layout/template location based on env
+var mainTemplate = 'layout';
 if (process.env.NODE_ENV === 'dev') {
-    app.set('view options', {
-        layout: 'layoutdev'
-    });
-} else {
-    app.set('view options', {
-        layout: 'layout'
-    });
+    mainTemplate = 'layoutdev';
 }
+app.set('view options', {
+    layout: mainTemplate
+});
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
