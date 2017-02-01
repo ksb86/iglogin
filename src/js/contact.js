@@ -1,4 +1,4 @@
-var $ = require('jquery');
+var $ = require('webpack-zepto');
 module.exports = {
     init: function(){
         $('button').on('click', function() {

@@ -6,6 +6,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var webpackPlugins = [];
 var webpackOutput;
 var cssPath;
+var fontPath;
 
 if (process.env.NODE_ENV === 'dev') {
     // output
@@ -41,11 +42,15 @@ module.exports = {
             include: __dirname + '/src',
             loader: 'babel-loader'
         }, {
-            test: /\.less$/,
+            test: /\.less|.css$/,
+            include: __dirname,
             loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
         }, {
             test: /\.hbs$/,
             loader: "handlebars-loader"
+        }, {
+            test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+            loader: 'file?name=../fonts/[hash].[ext]'
         }]
     },
     output: webpackOutput,
