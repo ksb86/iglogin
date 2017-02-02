@@ -1,0 +1,5 @@
+When using nodemailer (must use newer version of node.js that supports '...') the gmail authentication fails.  I think the account needs to be signed in via a browser from the same location that the nodemailer is trying to access from. (not going to work).
+-might need to generate and app key/login or use oauth
+-maybe nodemailer-smtp-transport (http://stackoverflow.com/questions/19877246/nodemailer-with-gmail-and-nodejs)
+
+SendGrid works but required more integration.
