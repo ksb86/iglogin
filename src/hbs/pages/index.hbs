@@ -34,7 +34,12 @@
     <div>(push to bitbucket [depending on which git is set up])</div>
     <br>
     <code>
-        git push heroku master
+        git push heroku <strong>master</strong>
     </code>
-    <div>(push to heroku git, triggers production build on heroku server)</div>
+    <div>(push master to master on heroku git, triggers production build on heroku server)</div>
+    <br>
+    <code>
+        git push heroku <strong>&lt;branch&gt;:master</strong>
+    </code>
+    <div>(push &lt;branch&gt; to master on heroku git, triggers production build on heroku server)</div>
 </div>

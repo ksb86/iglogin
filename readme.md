@@ -2,9 +2,17 @@ This is a website template that runs on node (heroku). It uses Express for routi
 
 #### Usage:
 
-`npm install` <span>(installs all dependencies for client and server. ie: express, handlebars, babel, less etc.)</span>  
-`npm run **express**` <span>(runs local server with file watch)</span>  
-`npm run **dev**` <span>(webpack, watches client js/less/hbs assets with name and builds to tmp folder)</span>  
-`npm run **build**` <span>(webpack, builds client js/less/hbs assets with name and version to public css/js folders)</span>  
-`git push` <span>(push to bitbucket [depending on which git is set up])</span>  
-`git push heroku master` <span>(push to heroku git, triggers production build on heroku server)</span>
+`npm install`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(installs all dependencies for client and server. ie: express, handlebars, babel, less etc.)  
+`npm run **express**`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(runs local server with file watch)  
+`npm run **dev**`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(webpack, watches client js/less/hbs assets with name and builds to tmp folder)  
+`npm run **build**`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(webpack, builds client js/less/hbs assets with name and version to public css/js folders)  
+`git push`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(push to bitbucket [depending on which git is set up])  
+`git push heroku **master**`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(push to heroku git, triggers production build on heroku server)
+`git push heroku **<branch>:master**`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(push <branch> to master on heroku git, triggers production build on heroku server)
