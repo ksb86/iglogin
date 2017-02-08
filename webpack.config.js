@@ -5,6 +5,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var webpackPlugins = [];
 var webpackOutput;
+var devTool = '';
 var cssPath;
 var fontPath;
 
@@ -16,6 +17,8 @@ if (process.env.NODE_ENV === 'dev') {
     };
     // css path
     cssPath = PACKAGE.name + '.css';
+    // debuggable asset
+    devTool = '#inline-source-map';
 } else {
     // output
     webpackOutput = {
@@ -33,6 +36,7 @@ if (process.env.NODE_ENV === 'dev') {
 webpackPlugins.push(new ExtractTextPlugin(cssPath));
 
 module.exports = {
+    devtool: devTool,
     entry: [
         './src/index.js'
     ],
