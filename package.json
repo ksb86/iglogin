@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "express": "NODE_ENV=dev nodemon ./bin/www",
-    "dev": "NODE_ENV=dev webpack --watch",
+    "dev": "NODE_ENV=dev nodemon ./bin/www",
+    "watch": "NODE_ENV=dev webpack --watch",
     "build": "webpack"
   },
   "dependencies": {
