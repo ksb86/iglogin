@@ -4,9 +4,9 @@ This is a website template that runs on node (heroku). It uses Express for routi
 
 `npm install`
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(installs all dependencies for client and server. ie: express, handlebars, babel, less etc.)  
-`npm run **express**`
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(runs local server with file watch)  
 `npm run **dev**`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(runs local server with file watch)  
+`npm run **watch**`
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(webpack, watches client js/less/hbs assets with name and builds to tmp folder)  
 `npm run **build**`
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(webpack, builds client js/less/hbs assets with name and version to public css/js folders)  
