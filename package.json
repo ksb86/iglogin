@@ -1,5 +1,5 @@
 {
-  "name": "express-template",
+  "name": "jake",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -9,13 +9,17 @@
     "build": "webpack"
   },
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "body-parser": "~1.15.2",
+    "cookie": "^0.3.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "express": "~4.14.0",
     "handlebars": "^4.0.6",
     "handlebars-loader": "^1.4.0",
     "hbs": "~4.0.1",
+    "jsonwebtoken": "^7.4.1",
+    "mongoose": "^4.10.5",
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.0",
     "webpack-zepto": "0.0.1"
