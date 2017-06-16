@@ -1,7 +1,7 @@
 <nav>
     <a href="/" class="nav-link"> <span class="glyphicon glyphicon-home"></span>Home</a>
-    {{#if loggedIn}}
-        <a href="/logout" class="nav-link"> <span class="glyphicon glyphicon-log-out"></span>Log Out</a>
+    {{#if user}}
+        <a href="/logout" class="nav-link"> <span class="glyphicon glyphicon-log-out"></span>Log Out ({{user}})</a>
     {{else}}
         <a href="/login" class="nav-link"> <span class="glyphicon glyphicon-user"></span>Login</a>
     {{/if}}

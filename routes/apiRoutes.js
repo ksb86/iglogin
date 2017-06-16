@@ -5,6 +5,52 @@ var User = require('../models/user'); // get our mongoose model
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var bcrypt = require('bcrypt');
 var cookie = require('cookie');
+var instagramNode = require('instagram-node').instagram();
+
+var INSTAGRAM_CLIENT_ID = "7814efbb6acd4d09a4ce7109f5e389b5"
+var INSTAGRAM_CLIENT_SECRET = "738a7ca282e04a4fa47984625618ff11";
+
+instagramNode.use({client_id: INSTAGRAM_CLIENT_ID, client_secret: INSTAGRAM_CLIENT_SECRET});
+var redirect_uri = 'http://localhost:3000/api/account'; // fixme
+
+apiRoutes.get('/authorize_user', function(req, res) {
+    res.redirect(instagramNode.get_authorization_url(redirect_uri, {
+        state: 'a state' // fixme
+    }));
+});
+apiRoutes.get('/account', function(req, res) {
+    instagramNode.authorize_user(req.query.code, redirect_uri, function(err, result) {
+        if (err) {
+            console.log(err.body);
+            res.redirect('/');
+        } else {
+
+            // IF NEW USER, STORE IN DATABASE HERE.. //fixme
+
+            // MAKE TOKEN
+            var token = jwt.sign(result, req.app.get('jakesappjwt'), {
+                expiresIn: '7d' // expires in 7 days
+            });
+            // STORE TOKEN IN COOKIE
+            res.cookie('jake-auth-access-token', token, {
+                maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+                httpOnly: true
+            });
+            res.render('pages/account', {
+                pageTitle: 'Express Templsate',
+                user: result.user.username
+            });
+        }
+    });
+});
+
+apiRoutes.get('/', function(req, res) {
+    res.json({user: req.user});
+});
+
+apiRoutes.get('/login', function(req, res) {
+    res.json({user: req.user});
+});
 
 // route to register user
 apiRoutes.post('/register', function(req, res) {
@@ -60,13 +106,12 @@ apiRoutes.post('/authenticate', function(req, res) {
                 var token = jwt.sign(user, req.app.get('jakesappjwt'), {
                     expiresIn: '7d' // expires in 7 days
                 });
-
                 // return the information including token as JSON
                 res.cookie('jake-auth-access-token', token, {
                     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
                     httpOnly: true
                 });
-                res.json({success: true, message: 'Enjoy your token!', token: token});
+                res.json({success: true, message: 'Enjoy your token!'});
             }
 
         }
@@ -104,14 +149,14 @@ apiRoutes.use(function(req, res, next) {
 });
 
 // route to show a random message (GET http://localhost:8080/api/)
-apiRoutes.get('/', function(req, res) {
-    res.json({message: 'Welcome to the coolest API on earth!'});
+apiRoutes.post('/', function(req, res) {
+    res.json({message: 'Welcome to the coolest API on earth!', decodedJwt: req.decoded});
 });
 
 // route to return all users (GET http://localhost:8080/api/users)
 apiRoutes.get('/users', function(req, res) {
     User.find({}, function(err, users) {
-        res.json(users);
+        res.json({users: users, decodedJwt: req.decoded});
     });
 });
 
