@@ -7,16 +7,20 @@ var userSchema = new Schema({
     email: {
         type: String,
         unique: true,
-        index: true
+        index: true,
+        sparse: true
     },
+    username: String,
     password: String,
-    admin: Boolean
+    admin: Boolean,
+    instagramId: String
 }, {strict: true});
 userSchema.index({
     email: 1
 }, {
     unique: true,
-    index: true
+    index: true,
+    sparse: true
 }); // schema level
 
 module.exports = mongoose.model('User', userSchema, 'JakesUsers');

@@ -51,7 +51,7 @@ var bindLoginForm = function() {
 
 module.exports = {
     init: function(){
-        bindCreateForm();
-        bindLoginForm();
+        // bindCreateForm();
+        // bindLoginForm();
     }
 };
