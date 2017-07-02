@@ -5,52 +5,38 @@ var cookie = require('cookie');
 var bcrypt = require('bcrypt');
 var User = require('../models/user'); // get our mongoose model
 var instagramNode = require('instagram-node').instagram();
-var INSTAGRAM_CLIENT_ID = "7814efbb6acd4d09a4ce7109f5e389b5"
-var INSTAGRAM_CLIENT_SECRET = "738a7ca282e04a4fa47984625618ff11";
+var config = require('../config'); // fixme (include only in dev, use env variables in prod)
 
-instagramNode.use({client_id: INSTAGRAM_CLIENT_ID, client_secret: INSTAGRAM_CLIENT_SECRET});
+instagramNode.use({client_id: config.igClientId, client_secret: config.igClientSecret});
 
-var redirect_uri = 'http://localhost:3000/igLoginReturn'; // fixme
+var redirect_uri = 'http://localhost:8080/igloginreturn'; // fixme
 
 var doLogin = function(user, req, res) {
     // create a token from user info
-    var token = jwt.sign(user, req.app.get('jakesappjwt'), {
+    var token = jwt.sign(user, req.app.get('appSecret'), {
         expiresIn: '7d' // expires in 7 days
     });
     // return the information including token as JSON
-    res.cookie('jake-auth-access-token', token, {
+    res.cookie('iglogin-auth-access-token', token, {
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         httpOnly: true
     });
     res.redirect('/account');
 
-
-    // // IF NEW USER, STORE IN DATABASE HERE.. //fixme
-    // // MAKE TOKEN
-    // var token = jwt.sign(result, req.app.get('jakesappjwt'), {
-    //     expiresIn: '7d' // expires in 7 days
-    // });
-    // // STORE TOKEN IN COOKIE
-    // res.cookie('jake-auth-access-token', token, {
-    //     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    //     httpOnly: true
-    // });
-    // res.redirect('/account');
-
-    // res.json({success: true, message: 'Enjoy your token!'});
+    // IF NEW USER, STORE IN DATABASE HERE.. // fixme
+    // IF EXISING USER GET DATA BASED IN IG ID // fixme
 };
 
-/* Check all for auth */
-// VERIFY TOKENS, NEEDS TO BE BEFORE AUTH PROTECTED API ROUTES
+// Check every request for cookie for displaying username
 pageRouter.use(function(req, res, next) {
 
-    // check header or url parameters or post parameters for token
-    var token = req.cookies['jake-auth-access-token'];
+    // check cookies for token
+    var token = req.cookies['iglogin-auth-access-token'];
 
     // decode token
     if (token) {
         // verifies secret and checks exp
-        jwt.verify(token, req.app.get('jakesappjwt'), function(err, decoded) {
+        jwt.verify(token, req.app.get('appSecret'), function(err, decoded) {
             if (err) {
                 next()
             } else {
@@ -67,6 +53,7 @@ pageRouter.use(function(req, res, next) {
 // route to register user
 pageRouter.post('/register', function(req, res) {
 
+    // find the user
     User.findOne({
         email: req.body.email
     }, function(err, user) {
@@ -76,7 +63,6 @@ pageRouter.post('/register', function(req, res) {
         if (user) {
             res.json({success: false, message: 'Email already taken'});
         } else {
-            console.log('req.body: ', req.body);
             var hash = bcrypt.hashSync(req.body.password, 10);
 
             // create user (need to store user data in variable first to send to token)
@@ -94,7 +80,7 @@ pageRouter.post('/register', function(req, res) {
     });
 });
 
-/* post to custom login */
+// route to checkou login request
 pageRouter.post('/login', function(req, res) {
 
     // find the user
@@ -120,7 +106,7 @@ pageRouter.post('/login', function(req, res) {
 });
 
 /* post to instagram login */
-pageRouter.post('/igLogin', function(req, res) {
+pageRouter.post('/iglogin', function(req, res) {
     res.redirect(instagramNode.get_authorization_url(redirect_uri, {
         state: 'a state', // fixme,
         scope: 'likes+comments+follower_list' // fixme,
@@ -128,7 +114,7 @@ pageRouter.post('/igLogin', function(req, res) {
 });
 
 /* instagram login callback */
-pageRouter.get('/igLoginReturn', function(req, res) {
+pageRouter.get('/igloginreturn', function(req, res) {
     instagramNode.authorize_user(req.query.code, redirect_uri, function(err, result) {
         if (err) {
             console.log('err: ', err);
@@ -174,50 +160,43 @@ pageRouter.get('/igLoginReturn', function(req, res) {
 
 /* GET home page. */
 pageRouter.get('/', function(req, res, next) {
-    console.log(req.user);
     res.render('pages/index', {
         pageTitle: 'Express Template',
+        pageName: 'home',
         user: req.user
     });
 });
 
-/* GET gallery page. */
+/* GET login page. */
 pageRouter.get('/login', function(req, res, next) {
     if (req.user) {
         res.redirect('/account');
     }
     res.render('pages/login', {
         pageTitle: 'Login Page',
-        user: req.user
-    });
-});
-
-/* GET account page. */
-pageRouter.get('/account', function(req, res, next) {
-    res.render('pages/account', {
-        pageTitle: 'Account Page',
-        user: req.user
+        pageName: 'login'
     });
 });
 
 /* GET logout page. */
 pageRouter.get('/logout', function(req, res, next) {
-    res.cookie('jake-auth-access-token', {expires: Date.now()});
-    res.clearCookie('jake-auth-access-token');
+    res.cookie('iglogin-auth-access-token', {expires: Date.now()});
+    res.clearCookie('iglogin-auth-access-token');
     res.redirect('/');
 });
 
 // VERIFY TOKENS, NEEDS TO BE BEFORE AUTH PROTECTED API ROUTES
+// routes after this will be restricted to logged in users
 pageRouter.use(function(req, res, next) {
 
     // check header or url parameters or post parameters for token
-    var token = req.cookies['jake-auth-access-token'];
+    var token = req.cookies['iglogin-auth-access-token'];
 
     // decode token
     if (token) {
 
         // verifies secret and checks exp
-        jwt.verify(token, req.app.get('jakesappjwt'), function(err, decoded) {
+        jwt.verify(token, req.app.get('appSecret'), function(err, decoded) {
             if (err) {
                 return res.redirect('/login');
                 console.log('No token provided.');
@@ -240,13 +219,24 @@ pageRouter.use(function(req, res, next) {
     }
 });
 
-
+/* GET account page. */
+pageRouter.get('/account', function(req, res, next) {
+    if (!req.user) {
+        res.redirect('/login');
+    }
+    res.render('pages/account', {
+        pageTitle: 'Account Page',
+        pageName: 'account',
+        user: req.user
+    });
+});
 
 /* GET protected page. */
 pageRouter.get('/protected', function(req, res, next) {
 
     res.render('pages/protected', {
         pageTitle: 'protected Page',
+        pageName: 'protected',
         user: req.user
     });
 });

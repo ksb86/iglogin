@@ -2,17 +2,32 @@ This is a website template that runs on node (heroku). It uses Express for routi
 
 #### Usage:
 
-`npm install`
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(installs all dependencies for client and server. ie: express, handlebars, babel, less etc.)  
-`npm run **dev**`
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(runs local server with file watch)  
-`npm run **watch**`
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(webpack, watches client js/less/hbs assets with name and builds to tmp folder)  
-`npm run **build**`
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(webpack, builds client js/less/hbs assets with name and version to public css/js folders)  
-`git push`
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(push to bitbucket [depending on which git is set up])  
-`git push heroku **master**`
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(push to heroku git, triggers production build on heroku server)
-`git push heroku **<branch>:master**`
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(push <branch> to master on heroku git, triggers production build on heroku server)
+<code>
+    npm install
+</code>
+<div>(installs all dependencies for client and server. ie: express, handlebars, babel, less etc.)</div>
+<br>
+<code>
+    npm run <strong>dev</strong>
+</code>
+<div>(runs local server with server file watch)</div>
+<br>
+<code>
+    npm run <strong>watch</strong>
+</code>
+<div>(webpack, watches client js/less/hbs assets and builds with name (no version) to tmp folder)</div>
+<br>
+<code>
+    npm run <strong>build</strong>
+</code>
+<div>(webpack, builds client js/less/hbs assets with name and version to public css/js folders)</div>
+<br>
+<code>
+    git push heroku <strong>master</strong>
+</code>
+<div>(push master to master on heroku git, triggers production build on heroku server)</div>
+<br>
+<code>
+    git push heroku <strong>&lt;branch&gt;:master</strong>
+</code>
+<div>(push &lt;branch&gt; to master on heroku git, triggers production build on heroku server)</div>

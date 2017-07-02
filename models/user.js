@@ -23,4 +23,4 @@ userSchema.index({
     sparse: true
 }); // schema level
 
-module.exports = mongoose.model('User', userSchema, 'JakesUsers');
+module.exports = mongoose.model('User', userSchema, 'igloginUsers');

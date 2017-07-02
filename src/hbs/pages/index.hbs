@@ -2,7 +2,7 @@
     <h2>{{pageTitle}}</h2>
     <br>
     <p>
-        This is a website template that runs on node (heroku). It uses Express for routing on the server and webpack for packaging and bundling assets on the client. Handlebars is used for templating. The templates are shared by the server and the client.
+        This is a node website template that runs on heroku. It uses Express for routing on the server and webpack for packaging and bundling assets on the client. Handlebars is used for templating. The templates are shared by the server and the client.
     </p>
     <br>
     <br>
@@ -16,22 +16,17 @@
     <code>
         npm run <strong>dev</strong>
     </code>
-    <div>(runs local server with file watch)</div>
+    <div>(runs local server with server file watch)</div>
     <br>
     <code>
         npm run <strong>watch</strong>
     </code>
-    <div>(webpack, watches client js/less/hbs assets with name and builds to tmp folder)</div>
+    <div>(webpack, watches client js/less/hbs assets and builds with name (no version) to tmp folder)</div>
     <br>
     <code>
         npm run <strong>build</strong>
     </code>
     <div>(webpack, builds client js/less/hbs assets with name and version to public css/js folders)</div>
-    <br>
-    <code>
-        git push
-    </code>
-    <div>(push to bitbucket [depending on which git is set up])</div>
     <br>
     <code>
         git push heroku <strong>master</strong>

@@ -1,9 +1,10 @@
 <nav>
-    <a href="/" class="nav-link"> <span class="glyphicon glyphicon-home"></span>Home</a>
+    <a href="/" class="nav-link nav-link-home"> <span class="glyphicon glyphicon-home"></span>Home</a>
+    <a href="/protected" class="nav-link nav-link-protected"> <span class="glyphicon glyphicon-lock"></span>Protected Page</a>
     {{#if user}}
-        <a href="/logout" class="nav-link"> <span class="glyphicon glyphicon-log-out"></span>Log Out ({{user}})</a>
+        <a href="/account" class="nav-link nav-link-account"> <span class="glyphicon glyphicon-list"></span>Account ({{user}})</a>
+        <a href="/logout" class="nav-link"> <span class="glyphicon glyphicon-log-out"></span>Log Out</a>
     {{else}}
-        <a href="/login" class="nav-link"> <span class="glyphicon glyphicon-user"></span>Login</a>
+        <a href="/login" class="nav-link nav-link-login"> <span class="glyphicon glyphicon-user"></span>Login</a>
     {{/if}}
-    <a href="/protected" class="nav-link"> <span class="glyphicon glyphicon-lock"></span>Protected Page</a>
 </nav>

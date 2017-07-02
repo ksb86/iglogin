@@ -6,15 +6,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var hbs = require('hbs');
 var mongoose = require('mongoose');
-var config = require('./config'); // get our config file
-mongoose.connect(config.database); // connect to database
-
+var config = require('./config'); // fixme (include only in dev, use env variables in prod)
+mongoose.connect(config.mongoDatabaseUrl); // connect to database
 
 var pageRoutes = require('./routes/pageRoutes');
-var apiRoutes = require('./routes/apiRoutes');
 
 var app = express();
-app.set('jakesappjwt', config.secret); // secret variable
+app.set('appSecret', config.appSecret); // secret variable
 
 // set views location (src/hbs)
 app.set('views', path.join(__dirname, 'src/hbs'));
@@ -40,7 +38,6 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api', apiRoutes);
 app.use('/', pageRoutes);
 
 // catch 404 and forward to error handler
